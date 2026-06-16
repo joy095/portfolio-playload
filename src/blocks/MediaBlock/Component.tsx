@@ -2,11 +2,11 @@ import type { StaticImageData } from 'next/image'
 
 import { cn } from '@/utilities/ui'
 import React from 'react'
-import RichText from '@/components/RichText'
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types'
 
 import { Media } from '../../components/Media'
+import RichText from '@/components/RichText'
 
 type Props = MediaBlockProps & {
   breakout?: boolean
@@ -29,8 +29,10 @@ export const MediaBlock: React.FC<Props> = (props) => {
     disableInnerContainer,
   } = props
 
-  let caption
-  if (media && typeof media === 'object') caption = media.caption
+  let caption: string | undefined
+  if (media && typeof media === 'object' && 'caption' in media) {
+    caption = (media as { caption?: string }).caption
+  }
 
   return (
     <div
@@ -59,7 +61,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
             captionClassName,
           )}
         >
-          <RichText data={caption} enableGutter={false} />
+          <p>{caption}</p>
         </div>
       )}
     </div>

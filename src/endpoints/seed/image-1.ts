@@ -1,6 +1,6 @@
 import type { Media } from '@/payload-types'
 
-export const image1: Omit<Media, 'createdAt' | 'id' | 'updatedAt'> = {
+export const image1 = {
   alt: 'Curving abstract shapes with an orange and blue gradient',
   caption: {
     root: {
@@ -64,4 +64,4 @@ export const image1: Omit<Media, 'createdAt' | 'id' | 'updatedAt'> = {
       version: 1,
     },
   },
-}
+} as Omit<Media, 'createdAt' | 'id' | 'updatedAt'>

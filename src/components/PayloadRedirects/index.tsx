@@ -10,9 +10,35 @@ interface Props {
   url: string
 }
 
+type RedirectRelationTo =
+  | 'pages'
+  | 'posts'
+  | 'users'
+  | 'categories'
+  | 'media'
+  | 'projects'
+  | 'forms'
+  | 'form-submissions'
+  | 'payload-kv'
+  | 'payload-jobs'
+  | 'payload-locked-documents'
+  | 'payload-preferences'
+  | 'payload-migrations'
+
+interface RedirectItem {
+  from: string
+  to?: {
+    url?: string
+    reference?: {
+      relationTo: RedirectRelationTo
+      value?: string | { slug?: string }
+    }
+  }
+}
+
 /* This component helps us with SSR based dynamic redirects */
 export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }) => {
-  const redirects = await getCachedRedirects()()
+  const redirects = (await getCachedRedirects()()) as unknown as RedirectItem[]
 
   const redirectItem = redirects.find((redirect) => redirect.from === url)
 

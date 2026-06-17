@@ -1,3 +1,4 @@
+import { anyone } from '@/access/anyone'
 import { CollectionConfig } from 'payload'
 
 export const Projects: CollectionConfig = {
@@ -6,7 +7,7 @@ export const Projects: CollectionConfig = {
     useAsTitle: 'name',
   },
   access: {
-    read: () => true,
+    read: anyone,
   },
   fields: [
     {
@@ -17,15 +18,18 @@ export const Projects: CollectionConfig = {
     {
       name: 'info',
       type: 'text',
+      required: true,
     },
     {
       name: 'desc',
       type: 'richText',
+      required: true,
     },
     {
       name: 'banner',
       type: 'upload',
       relationTo: 'media',
+      required: true,
     },
     {
       name: 'img2',
@@ -50,6 +54,8 @@ export const Projects: CollectionConfig = {
     {
       name: 'url_slug',
       type: 'text',
+      required: true,
+      unique: true,
     },
   ],
 }

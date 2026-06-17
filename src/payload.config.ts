@@ -16,6 +16,7 @@ import { Posts } from './collections/Posts'
 import { Categories } from './collections/Categories'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { Blogs } from './collections/Blogs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,7 +29,7 @@ export default buildConfig({
     },
   },
   globals: [Header, Footer],
-  collections: [Users, Pages, Posts, Categories, Media, Projects],
+  collections: [Users, Pages, Posts, Categories, Media, Projects, Blogs],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

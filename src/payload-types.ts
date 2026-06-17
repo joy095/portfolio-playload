@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     media: Media;
     projects: Project;
+    blogs: Blog;
     forms: Form;
     'form-submissions': FormSubmission;
     'payload-kv': PayloadKv;
@@ -89,6 +90,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    blogs: BlogsSelect<false> | BlogsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -671,8 +673,8 @@ export interface Form {
 export interface Project {
   id: number;
   name: string;
-  info?: string | null;
-  desc?: {
+  info: string;
+  desc: {
     root: {
       type: string;
       children: {
@@ -686,13 +688,41 @@ export interface Project {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
-  banner?: (number | null) | Media;
+  };
+  banner: number | Media;
   img2?: (number | null) | Media;
   img3?: (number | null) | Media;
   img4?: (number | null) | Media;
   img5?: (number | null) | Media;
-  url_slug?: string | null;
+  url_slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs".
+ */
+export interface Blog {
+  id: number;
+  name: string;
+  desc: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  image: number | Media;
+  url_slug: string;
+  tags?: (number | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -852,6 +882,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'blogs';
+        value: number | Blog;
       } | null)
     | ({
         relationTo: 'forms';
@@ -1135,6 +1169,19 @@ export interface ProjectsSelect<T extends boolean = true> {
   img4?: T;
   img5?: T;
   url_slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs_select".
+ */
+export interface BlogsSelect<T extends boolean = true> {
+  name?: T;
+  desc?: T;
+  image?: T;
+  url_slug?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
 }

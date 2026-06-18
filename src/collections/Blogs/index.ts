@@ -24,12 +24,14 @@ export const Blogs: CollectionConfig = {
       name: 'name',
       type: 'text',
       required: true,
+      localized: true,
     },
 
     {
       name: 'desc',
       type: 'richText',
       required: true,
+      localized: true,
 
       editor: lexicalEditor({
         features: ({ rootFeatures }) => [

@@ -14,16 +14,19 @@ export const Projects: CollectionConfig = {
       name: 'name',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'info',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'desc',
       type: 'richText',
       required: true,
+      localized: true,
     },
     {
       name: 'banner',
